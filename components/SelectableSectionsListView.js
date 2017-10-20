@@ -1,8 +1,11 @@
 'use strict';
 /* jshint esnext: true */
 
-import React, { Component } from 'react';
+import React, {
+  Component,
+} from 'react';
 import PropTypes from 'prop-types';
+
 import ReactNative, {
   ListView,
   StyleSheet,
@@ -56,9 +59,6 @@ export default class SelectableSectionsListView extends Component {
     setTimeout(() => {
       UIManager.measure(ReactNative.findNodeHandle(this.refs.view), (x,y,w,h) => {
         this.containerHeight = h;
-        if (this.props.contentInset && this.props.data && this.props.data.length > 0) {
-          this.scrollToSection(Object.keys(this.props.data)[0]);
-        }
       });
     }, 0);
   }
@@ -101,10 +101,6 @@ export default class SelectableSectionsListView extends Component {
     let y = 0;
     let headerHeight = this.props.headerHeight || 0;
     y += headerHeight;
-    
-    if(this.props.contentInset) {
-        y -= this.props.contentInset.top - headerHeight
-    }
 
     if (!this.props.useDynamicHeights) {
       const cellHeight = this.props.cellHeight;
@@ -171,7 +167,7 @@ export default class SelectableSectionsListView extends Component {
     index = parseInt(index, 10);
 
     const isFirst = index === 0;
-    const isLast = this.sectionItemCount && this.sectionItemCount[sectionId]-1 === index;
+    const isLast = this.sectionItemCount[sectionId]-1 === index;
 
     const props = {
       isFirst,
